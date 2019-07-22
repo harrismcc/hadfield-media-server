@@ -11,13 +11,15 @@
     })(window,document,'script','dataLayer','GTM-NW66M9F');</script>
     <!-- End Google Tag Manager -->
 
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
+
     <?php
         
         session_start(); //start user session
 
         
         echo("<div id='main-title' class='white'><h1 class='white'>Waking Server...</h1></div>");
-        echo("<div class='center'><img class='center' src='/assets/waking.gif'></img></div>");
+        echo("<div class='center'><img class='center' src='/assets/waking.gif' width='60%'></img></div>");
         
         ob_end_flush();
         ob_flush();
