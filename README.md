@@ -14,12 +14,12 @@ In order to solve the above problems, working under the philosophy that the user
 
 
 ## Future Plans
-*Automatic WOL for Apple TV/ Roku/ non-browser clients
-*Some sort of intro tour or something like that to increase new user retetion
-*Google adsense or some other monitization strategy would be great
-*Automatic downtime monitoring - text me when something bad happens
-..*hadfield.webhop.me goes down
-..*plex server goes down
-..*mac pro goes down
-..*new user is created/approved
-..*stream or other errors
+* Automatic WOL for Apple TV/ Roku/ non-browser clients
+* Some sort of intro tour or something like that to increase new user retetion
+* Google adsense or some other monitization strategy would be great
+* Automatic downtime monitoring - text me when something bad happens
+..* hadfield.webhop.me goes down
+..* plex server goes down
+..* mac pro goes down
+..* new user is created/approved
+..* stream or other errors
