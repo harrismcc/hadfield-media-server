@@ -5,7 +5,7 @@ flush();
 
 
 function WakeOnLan($broadcast, $mac){
-    $cmd = "wakeonlan " . $mac;
+    $cmd = "sudo etherwake " . $mac;
     shell_exec($cmd);
     
 }
