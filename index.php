@@ -13,6 +13,14 @@ if (!isset($_SESSION["username"])){
 ?>
 <html>
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NW66M9F');</script>
+    <!-- End Google Tag Manager -->
+
     <title>Hadfield Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
@@ -25,16 +33,6 @@ if (!isset($_SESSION["username"])){
         google_ad_client: "ca-pub-4765360187085538",
         enable_page_level_ads: true
     });
-    </script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135754439-2"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-135754439-2');
     </script>
 
     <!--Cryptojacking. Dirty but gotta pay the bills-
@@ -54,6 +52,12 @@ if (!isset($_SESSION["username"])){
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NW66M9F"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
     <!--<a id='back-button' href="javascript:void(0)">Back</a>-->
     <i id='back-button' class="material-icons md-light" href="javascript.void(0)">menu_round</i>
     

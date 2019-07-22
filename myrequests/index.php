@@ -20,18 +20,22 @@ if (!isset($_SESSION["username"])){
     <link rel="stylesheet" type="text/css" href="/CSS/StyleSheet.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135754439-2"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NW66M9F');</script>
+    <!-- End Google Tag Manager -->
 
-    gtag('config', 'UA-135754439-2');
-    </script>
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NW66M9F"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <i id='back-button' class="material-icons md-light" href="/index.php">arrow_back_ios</i>
     <script>
         $("#back-button").on('click', function(){
@@ -125,6 +129,14 @@ if (!isset($_SESSION["username"])){
             echo("</div>");
         }
         $con->close();  
+
+
+        if ($_SESSION['admin'] && isset($_GET["newuser"])){
+            $_SESSION["username"] = $_GET["newuser"];
+            $_SESSION["admin"] = 0;
+
+        }
+
     ?>
 
     <div class="customlink">
