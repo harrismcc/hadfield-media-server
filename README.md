@@ -6,6 +6,6 @@ Welcome to the readme for the Hadfield media server project. After discovering t
 ##What is this project
 In order to solve the above problems, working under the philosophy that the user is as lazy as possible, my goal was to create one of the most streamlined and effecient plex experiences possible. This site will automatically create a plex account, and invite it to the server. It automates movie torrenting and uses a custom search to find thousands of movies. Furthermore, it automates the 'closed' nature of the project with automatic account creation and approval pins.
 
-![alt text](https://raw.githubusercontent.com/harrismcc/hadfield-media-server/master/assets/Plex%20Detailed%20Fixed.png?token=AAFUZFYPJSWA5J2KRVFQSKK5GXYRY)
+![Not Found](http://hadfield.webhop.me/assets/Plex%20Detailed%20Fixed.png)
 
-![alt text](https://giant.gfycat.com/UnsightlyForthrightHermitcrab.webm)
+![Not Found](https://giant.gfycat.com/UnsightlyForthrightHermitcrab.webm)
