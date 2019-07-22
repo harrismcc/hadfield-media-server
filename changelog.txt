@@ -1,0 +1,11 @@
+Made this file 7/11/2019 to keep track of changes
+
+
+
+Before: Summary of changes before this - been improving the user account creation process so that it automatically creates a new plex account for the user and invites them to the server. This is with the goal to make it dumb easy for users to get started. Also set up log-ins and user sessions and all that. 
+
+7/10/2019: Added watch now button to go direct to media server from portal
+7/11/2019: Removed request table option in favor of single request button. Updated all db logins to use single file. Added PIN account creation function. Added google AdSense id code. Added privacy policy and plex opt-in during account creation. Created Cron jobs for updating imdb and updating requests db against movies in plex. Removed "custom request" capabilities for non-admin users.
+7/12/2019: Made site more mobile friendly. Added hamburger menu to replace all those buttons and links that were all over the place. Created new "my requests" page where users can see their submissions and the status of those submissions.
+7/15/2019: Made request button grey out and turn to "Done" when clicked. GET request to add-imdb and update-completed whenver myrequests page is loaded. Researched Docker as potential implementation solution for bigger Mac Pro server.
+7/22/2019: Since last update: Have begun migration to bigger Mac Pro server. Created a docker containter for plex that works. Tested transcoding testing -> server able to handle 1080p transcode no problem, can even do 4k transcode albeit very strained. Added WOL so that the server can sleep and be woken when in need, added WOL php script that is activated on /watch page. Added title and fun gif to that page in case user has to wait a few moments for server to spin up
