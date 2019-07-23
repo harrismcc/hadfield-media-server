@@ -123,7 +123,9 @@ if (!isset($_SESSION["username"])){
     
 
     <p id="hash-display"></p>
-
+    <div class="center">
+    <a href="https://github.com/harrismcc/hadfield-media-server">Check out this project on GitHub!</a>
+    </div>
 
 
     <!--

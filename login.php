@@ -44,10 +44,13 @@
             <input type="submit" id="submit">
         </form>
     </div>
-    <a href="/signup.php">Need to create an account?</a>
     
     
-
+    
+    <div class="center">
+        <a href="/signup.php">Need to create an account? - </a>
+        <a href="https://github.com/harrismcc/hadfield-media-server">Check out this project on GitHub!</a>
+    </div>
 
     <script src="/JS/errorDisplay.js"></script>
 </body>
