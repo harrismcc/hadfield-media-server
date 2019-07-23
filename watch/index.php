@@ -17,6 +17,14 @@
         
         session_start(); //start user session
 
+        include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+
+        if (!isset($_SESSION["username"])){
+            header("Location: /login.php");
+            die();
+        }
+
+
         
         echo("<div id='main-title' class='white'><h1 class='white'>Waking Server...</h1></div>");
         echo("<div class='center'><img class='center' src='/assets/waking.gif' width='60%'></img></div>");

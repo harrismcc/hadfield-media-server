@@ -3,6 +3,11 @@
 # Modified by Allan Barizo http://www.hackernotcracker.com
 flush();
 
+include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+session_start();
+if (!isset($_SESSION["username"])){
+    die("<h1>Unauthorized</h1>");
+}
 
 function WakeOnLan($broadcast, $mac){
     $cmd = "sudo etherwake " . $mac;
