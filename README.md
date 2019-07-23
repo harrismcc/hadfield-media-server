@@ -12,7 +12,7 @@ To solve the above problems, working under the philosophy that the user is as la
 
 
 ## Project Example
-![Not Found](http://hadfield.webhop.me/assets/7L9ggh58x0.gif)
+![Not Found](http://hadfield.webhop.me/assets/optimized-demo.gif)
 
 
 ## Future Plans
