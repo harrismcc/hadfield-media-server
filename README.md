@@ -10,7 +10,9 @@ To solve the above problems, working under the philosophy that the user is as la
 ## Project Structure
 ![Not Found](http://hadfield.webhop.me/assets/Plex%20Detailed%20Fixed.png)
 
-![Not Found](https://giant.gfycat.com/UnsightlyForthrightHermitcrab.webm)
+
+## Project Example
+![Not Found](http://hadfield.webhop.me/assets/7L9ggh58x0.gif)
 
 
 ## Future Plans
