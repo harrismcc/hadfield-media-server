@@ -6,10 +6,13 @@ include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 session_start();
 
 //Auth user
+
+
 if (!isset($_SESSION["username"])){
     header("Location: /login.php");
     exit;
 }
+
 
 ?>
 <html>
@@ -140,7 +143,7 @@ if (!isset($_SESSION["username"])){
     ?>
 
     <div class="customlink">
-    <button id="watch-button" oncli" firstLogin=1 class="watch_button">Watch now!</button>
+    <button id="watch-button" onclick="location.href = '/watch';" firstLogin=1 class="watch_button">Watch now!</button>
         
     </div>
     

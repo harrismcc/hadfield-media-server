@@ -3,6 +3,8 @@ include $_SERVER['DOCUMENT_ROOT'] . "/PHP/auth.php";
 //Auth user
 //require_auth(); //"1" level access - no admin needed
 
+
+
 if (!isset($_SESSION["username"])){
     header("Location: /login.php");
     exit;
@@ -85,6 +87,8 @@ if (!isset($_SESSION["username"])){
 
     <div>
         <h1 id="main-title">Movie Search</h1>
+        <!--TODO: remove - adsense -->
+        <h3>Warning: Site functions currently in production, requests will not be approved or added until adsense approval (7/25)</h3>
     </div>
     <div class="rounded" id="search-div">
         <form id="search-form">

@@ -1,11 +1,12 @@
 <?php
 # Wake on LAN - (c) HotKey@spr.at, upgraded by Murzik
 # Modified by Allan Barizo http://www.hackernotcracker.com
-flush();
+//flush();
 
 include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 session_start();
 if (!isset($_SESSION["username"])){
+    echo("0");
     die("<h1>Unauthorized</h1>");
 }
 

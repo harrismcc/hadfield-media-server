@@ -29,7 +29,10 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NW66M9F"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-
+    <?php
+    //TODO: remove - adsense
+    header("Location: /Ihatethis.php");
+    ?>
 
     <div id="custom-request-div">
         

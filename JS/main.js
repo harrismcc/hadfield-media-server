@@ -163,6 +163,9 @@ $(document).ready(function(){
           //button listner
           $( ".send_request_button" ).on( "click", function(){
             //alert($(this).attr("movie_id"));
+
+          
+            
             $.get( "/PHP/insertrequest.php",{user: 'hadfield_request_portal', name : $(this).attr("title"), type : $(this).attr("type"), torrent_url : $(this).attr("url"), imdb_id : $(this).attr("imdb")}, function( data ) {
               
               alert(data);
@@ -171,6 +174,7 @@ $(document).ready(function(){
               $(".send_request_button").prop("disabled",true);
             });
             
+           alert("currently disabled");
           });
           
         }
