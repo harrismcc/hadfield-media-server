@@ -3,7 +3,7 @@
 # Modified by Allan Barizo http://www.hackernotcracker.com
 flush();
 
-include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 session_start();
 if (!isset($_SESSION["username"])){
     die("<h1>Unauthorized</h1>");
@@ -48,11 +48,14 @@ while (ping($ip_addy) && $trys < $max_trys){
 }
 
 if ($trys > ($max_trys - 1)){
-    echo("0");
+    $wol_status = 0;
+    error_log("###### WOL STATUS 0 #####");
+    
 }
 else{
-    echo("1");
+    $wol_status = 1;
 }
+
 
 
 
