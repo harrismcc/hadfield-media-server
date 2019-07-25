@@ -37,8 +37,12 @@
 
 
         //send WOL packet and log into db
-        include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
         include $_SERVER['DOCUMENT_ROOT']."/PHP/system-commands/wol.php";
+
+        if (!$wol_status){
+            die("<h1> bad </h1>");
+        }
 
        
         if ($_GET["firstLogin"] == 1){
