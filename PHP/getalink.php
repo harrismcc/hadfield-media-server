@@ -8,12 +8,15 @@ $err = 1;
 
 while ($err != 0 ){
 
+    /*
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    } 
+    } */
+
+    $conn= get_connection('requests');
 
     $val = rand(100000000,999999999);
     //$val = "144002622";

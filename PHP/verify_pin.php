@@ -7,12 +7,16 @@ function verify_pin($pin, $uid){
     //new sql connection
     include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
+    /*
     // Create connection
     $con = new mysqli($servername, $username, $password, $dbname);
     // Check connection
     if ($con->connect_error) {
         die("Connection failed: " . $con->connect_error);
     }
+    */
+    
+    $con= get_connection('requests');
 
     //create and execute the sql line
     $sql="SELECT *  FROM `new_account_pins` WHERE `used` = '0' AND `pin` = " . $pin;

@@ -38,12 +38,15 @@ if ($_POST["create-plex"]){
 
 
 ////////CONNECT TO DB////////
+/*
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+} */
+
+$conn= get_connection('requests');
 
 $sql_check = "SELECT `id` FROM `auth_table` WHERE `username` = '" . $_POST["username"] . "' OR `email` = '" . $_POST["email"] . "'";
 $user_id = $conn->query($sql_check);
