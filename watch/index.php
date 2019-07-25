@@ -37,18 +37,21 @@
 
 
         //send WOL packet and log into db
-        include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
         include $_SERVER['DOCUMENT_ROOT']."/PHP/system-commands/wol.php";
 
        
         if ($_GET["firstLogin"] == 1){
 
+            /*
              // Create connection
             $con = new mysqli($servername, $username, $password, $dbname);
             // Check connection
             if ($con->connect_error) {
                 die("Connection failed: " . $con->connect_error);
-            }
+            }*/
+
+            $con = get_connection("requests");
         
             $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1' WHERE `username` = '" . $_SESSION["username"] . "'";
             $result = $con->query($sql);
