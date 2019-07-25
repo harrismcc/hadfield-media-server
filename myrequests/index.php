@@ -3,7 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/PHP/auth.php");
 include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
 
-session_start();
+if (!isset($_SESSION)){session_start();}
 
 //Auth user
 if (!isset($_SESSION["username"])){

@@ -6,7 +6,7 @@
 
 
 //start user session
-session_start();
+if(!isset($_SESSION)){session_start();}
 
 
 function checkdb($u, $p) {
@@ -22,7 +22,7 @@ function checkdb($u, $p) {
         die("Connection failed: " . $con->connect_error);
     }*/
 
-    $con= get_connection('requests');
+    $con = get_connection('requests');
 
     //create and execute the sql line
     //only get lines where a link exists

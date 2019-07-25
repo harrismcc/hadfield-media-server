@@ -7,7 +7,7 @@ Welcome to the readme for the Hadfield media server project. After discovering t
 To solve the above problems, working under the philosophy that the user is as lazy as possible, my goal was to create one of the most streamlined and efficient plex experiences possible. This site will automatically create a plex account, and invite it to the server. It simplifies movie acquisition using a custom search to find thousands of movies. Furthermore, it maintains it's 'closed' nature with automatic account creation and approval pins.
 
 ## Request Approval
-This server is a 'closed' project so to speak, so account creation requires admin approval. If you want to join, or to learn more about the project, contact admin@hadfield.webhop.me
+This server is a 'closed' project so to speak, so account creation requires admin approval. If you want to join, or to learn more about the project, contact admin@hadfield.webhop.me or apply to create an account ![here!](http://hadfield.webhop.me/signup.php)
 
 
 ## Project Structure
