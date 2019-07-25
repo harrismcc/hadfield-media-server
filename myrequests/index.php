@@ -140,7 +140,7 @@ if (!isset($_SESSION["username"])){
     ?>
 
     <div class="customlink">
-    <button id="watch-button" oncli" firstLogin=1 class="watch_button">Watch now!</button>
+    <button id="watch-button" onclick="location.href = '/watch';" firstLogin=1 class="watch_button">Watch now!</button>
         
     </div>
     
