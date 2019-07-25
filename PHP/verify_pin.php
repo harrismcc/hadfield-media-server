@@ -5,7 +5,7 @@
 function verify_pin($pin, $uid){
     //this authenticates
     //new sql connection
-    include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
     /*
     // Create connection
@@ -15,7 +15,7 @@ function verify_pin($pin, $uid){
         die("Connection failed: " . $con->connect_error);
     }
     */
-    
+
     $con= get_connection('requests');
 
     //create and execute the sql line

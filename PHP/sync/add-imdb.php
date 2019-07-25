@@ -8,7 +8,7 @@
 
 error_reporting( E_ALL );
 
-include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 /*
 // Create connection
 $con = new mysqli($servername, $username, $password, $dbname);
