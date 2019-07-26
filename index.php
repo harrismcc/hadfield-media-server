@@ -67,7 +67,12 @@ if (!isset($_SESSION["username"])){
 
         <a href="/">Search</a>
         <a href="/myrequests">My Requests</a>
-        <?php if($_SESSION["admin"]){echo('<a href="/custom.php" id="custom-link" class="customlink">Custom Request</a>');} ?>
+        <?php 
+            if($_SESSION["admin"]){
+                echo('<a href="/custom.php" id="custom-link" class="customlink">Custom Request</a>');
+                echo('<a href="/internal-approval" id="custom-link" class="customlink">Approve Users</a>');
+            } 
+        ?>
         <a href="/PHP/logout.php">Logout?</a>
         <br/>
         <?php 
