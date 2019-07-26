@@ -67,7 +67,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
         //create and execute the sql line
         //only get lines where a link exists
         //TODO: add support for lines with magnet links
-        $sql="SELECT `id`, `username`, `email` FROM `auth_table` WHERE `approved` != 1";
+        $sql="SELECT `id`, `username`, `email`, `date_created` FROM `auth_table` WHERE `approved` != 1";
 
         $result = $con->query($sql);
     
@@ -79,16 +79,18 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
             echo("<div class='item rounded'>");
             echo("<table id='my-requests-table'>");
             echo("<tbody class='my-results-tbody'>");
-            echo("<tr><th><h3>ID</h3></th><th><h3>Name</h3></th><th><h3>Email</h3></th><th><h3>Approve</h3></th><tr>");
+            echo("<tr><th><h3>ID</h3></th><th><h3>Name</h3></th><th><h3>Email</h3></th><th><h3>Date</h3></th><th><h3>Approve</h3></th><tr>");
             while($row = $result->fetch_assoc()) {
 
             
                 $id_row = "<td><p>" . $row["id"] . "</p></td>";
                 $name_row = "<td><p>" . $row["username"] . "</p></td>";
                 $email_row = "<td><p>" . $row["email"] . "</p></td>";
+                $date_row = "<td><p>" . $row["date_created"] . "</p></td>";
+                $button_row = "<td>" . "<button class='expand_button'>Approve</button>" . "</td>";
 
                 //output
-                print_r("<tr>" . $id_row . $name_row . $email_row . "</tr>");
+                print_r("<tr>" . $id_row . $name_row . $email_row . $date_row . $button_row ."</tr>");
                 
 
                 
