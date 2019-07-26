@@ -39,7 +39,7 @@ if (!isset($_SESSION["username"])){
     <i id='back-button' class="material-icons md-light" href="/index.php">arrow_back_ios</i>
     <script>
         $("#back-button").on('click', function(){
-            window.location.href = "http://hadfield.webhop.me/index.php";
+            window.location.href = window.location.origin + "/index.php";
         });
     </script>
 
