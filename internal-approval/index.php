@@ -7,12 +7,19 @@ if (!isset($_SESSION)){session_start();}
 
 //Auth user
 if (!isset($_SESSION["username"])){
-    header("Location: /login.php");
+    header('HTTP/1.0 401 Unauthorized');
+    echo("<h1>401 Unauthorized</h1>");
+    echo("<p>You don't have access to this page</p>");
+    
+    //header("Location: /login.php");
     exit;
 }
 
 if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
-    header("Location: /index.php");
+    echo("<h1>401 Unauthorized</h1>");
+    header('HTTP/1.0 401 Unauthorized');
+    echo("<p>You don't have access to this page</p>");
+    //header("Location: /index.php");
     exit;
 }
 
@@ -64,9 +71,18 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
         }*/
         $con= get_connection('requests');
 
-        //create and execute the sql line
-        //only get lines where a link exists
-        //TODO: add support for lines with magnet links
+
+        //AUTH USER FROM POST REQUEST
+        if (isset($_GET["id_to_approve"])){
+            //approve id
+            $sql = "UPDATE `auth_table` SET `approved` = '1' WHERE `auth_table`.`id` = " . $_GET["id_to_approve"];
+            $result = $con->query($sql);
+            echo("<div class='center'><h3>Approved ID: " . $_GET["id_to_approve"] . "</h3></div>");
+        }
+
+
+
+        //DISPLAY USERS SECTION
         $sql="SELECT `id`, `username`, `email`, `date_created` FROM `auth_table` WHERE `approved` != 1";
 
         $result = $con->query($sql);
@@ -87,7 +103,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
                 $name_row = "<td><p>" . $row["username"] . "</p></td>";
                 $email_row = "<td><p>" . $row["email"] . "</p></td>";
                 $date_row = "<td><p>" . $row["date_created"] . "</p></td>";
-                $button_row = "<td>" . "<button class='expand_button'>Approve</button>" . "</td>";
+                $button_row = "<td>" . "<form><input type='hidden' name='id_to_approve' value='" . $row["id"] . "'></input><button type = 'submit' class='expand_button'>Approve</button></form>" . "</td>";
 
                 //output
                 print_r("<tr>" . $id_row . $name_row . $email_row . $date_row . $button_row ."</tr>");
