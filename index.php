@@ -124,7 +124,52 @@ if (!isset($_SESSION["username"])){
         
     </div>
 
+    <div id="recs-box" class="item center rounded">
+    <?php
+            require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+        
+            $con = get_connection('requests');
+
+            $sql = "SELECT * FROM `requests_table` WHERE `submitted_date` >= '2019-07-07 00:00:00' AND `complete` = 1 ORDER BY `submitted_date` DESC";
+            $result = $con->query($sql);
+
+            $count = 0;
+            $count_max = 3;
+        
+        
+            if ($result->num_rows > 0 ) {
+                // output data of each row
+                echo("<h2 class='center'>Recently Added</h2><table><tr>");
+                while($row = $result->fetch_assoc()) {
+                    
+                    
+                    if ($count >= $count_max){
+                        
+                        break;
+                    }
+
+
+                    echo("<td>");
+                    //echo("<p>" . urldecode($row["name"]) . "</p>");
+
+                    //make post request
+                    //https://www.omdbapi.com/?apikey=7d893962&s=
+
+                    $jsonurl = "https://www.omdbapi.com/?apikey=7d893962&s=" . $row["name"];
+                    $json = file_get_contents($jsonurl);
+                    echo("<img style='max-width : 90%' src=" . json_decode($json)->Search[0]->Poster . "></img>");
+                    echo("</td>");
+
+
+
+                    $count = $count + 1;
+                }
+                echo("</tr></table>");
+            }
+
+    ?>
     
+    </div>
     
 
     <p id="hash-display"></p>
