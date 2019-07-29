@@ -163,12 +163,13 @@ if (!isset($_SESSION["username"])){
                     $json = file_get_contents($jsonurl);
                     
                     $img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
+                    $id =  json_decode($json, true)["data"]["movies"][0]["id"];
 
                     if(!isset($img)){
                        $img = "/assets/default_poster.jfif"; 
                     }
 
-                    echo("<div class='poster-img-col'><img style='max-height:80%; max-width:80%; vertical-align:middle;' src=" . $img . "></img>");
+                    echo("<div class='poster-img-col'><img class='recentPoster' style='max-height:80%; max-width:80%; vertical-align:middle;' imdb_id='" . $id . "' src=" . $img . "></img>");
                     
 
                     echo("<p>" . urldecode($row["name"]) . "</p></div>");
