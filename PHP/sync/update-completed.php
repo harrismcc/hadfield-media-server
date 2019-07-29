@@ -26,14 +26,17 @@ for ($i = 0; $i < sizeof($xml->Video); $i++){
 
 
 //new sql connection
-include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
+/*
 // Create connection
 $con = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
-}
+}*/
+
+$con=get_connection("requests");
 
 //get all rows where there is and imdb id and it is not complete
 $sql="SELECT * FROM `requests_table` WHERE `imdb_id` IS NOT NULL AND `complete` = 0";
