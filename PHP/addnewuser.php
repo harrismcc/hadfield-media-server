@@ -23,7 +23,7 @@ $_POST["username"] = strtolower($_POST["username"]);
 
 ////////CREATE NEW PLEX USER////////
 
-if ($_POST["create-plex"]){
+if ($_POST["create-plex"] && 1==2){
 	echo("Plex Checkbox: " . $_POST["create-plex"]);
 	$plex = create_plex_user($_POST["email"], $_POST["username"], $_POST["pass"]);
 	echo("Plex: " . $plex);

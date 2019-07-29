@@ -28,6 +28,10 @@ function create_plex_user($email_in, $login_in, $password_in){
     //The url you wish to send the POST request to
     $url = 'https://plex.tv/api/v2/users';
 
+    if(!(isset($email_in) && isset($login_in) && isset($password_in))){
+        echo("Something is not set!");
+    }
+
     //The data you want to send via POST
     $fields = array('email' => $email_in, 'login' => $login_in, 'password' => $password_in);
 
@@ -80,8 +84,11 @@ function invite_plex_user($plex_user_email){
     //open connection
     $ch = curl_init();
 
-    $username="harrismcc";
-    $password="Cookie1212!";//TODO: again bad form, maybe there is a better way (token or something?)
+    $ini_array = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/creds.ini", true);
+
+    $username = $ini_array["plex_general"]["username"];
+    $password = $ini_array["plex_general"]["password"];
+
 
     //set the url, number of POST vars, POST data
     curl_setopt($ch,CURLOPT_URL, $url);

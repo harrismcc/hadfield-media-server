@@ -2,7 +2,7 @@
 
 
 //TODO: we need some way here to check if first login has happened. If not, then invite plex user
-
+include "plex_auth/create.php";
 
 
 //start user session
@@ -49,6 +49,7 @@ function checkdb($u, $p) {
                 $message = "Incorrect%20login";
             }
             $lstatus = $row["plex_logged_in_once"];
+            $email_result = $row["email"];
         }
 
     } else {
@@ -56,7 +57,7 @@ function checkdb($u, $p) {
         $message = "User%20does%20not%20exist";
     }
     $con->close();
-    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus);
+    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result);
     
 }
 
@@ -87,11 +88,19 @@ function require_auth() {
 		exit;
     }
     else {
+        //successful login
         
         $_SESSION["username"] = $user;
         $_SESSION["admin"] = $authresults["admin"];
 
         if (!$authresults["first_login_status"]){
+            //add new plex user
+            $plex = create_plex_user($authresults["email"], $_SESSION["username"], $_POST["password"]);
+
+            ///////INVITE USER////////
+            invite_plex_user($authresults["email"]);
+
+
             header("Location:/index.php?plexLoggedInOnce=0");
         }
         else{
