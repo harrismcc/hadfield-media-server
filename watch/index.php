@@ -41,7 +41,7 @@
         include $_SERVER['DOCUMENT_ROOT']."/PHP/system-commands/wol.php";
 
         if (!$wol_status){
-            die("<h1> bad </h1>");
+            echo("<h1> bad </h1>");
         }
 
        
