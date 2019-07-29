@@ -140,9 +140,9 @@ if (!isset($_SESSION["username"])){
         
             if ($result->num_rows > 0 ) {
                 // output data of each row
-                echo("<h2 class='center' style='
-                margin-top: 0px;'>Recently Added</h2>");
-                echo("<table><tr>");
+                echo("<h2 class='center' style='margin-top: 0px;margin-bottom:10px;'>Recently Added</h2>");
+                echo("<div class='poster-img-row'>");
+                
                 
                 while($row = $result->fetch_assoc()) {
                     
@@ -153,24 +153,33 @@ if (!isset($_SESSION["username"])){
                     }
 
 
-                    echo("<td>");
-                    
+                   
+                    error_reporting(0);
 
                     //make post request
                     //https://www.omdbapi.com/?apikey=7d893962&s=
 
                     $jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=" . $row["name"];
                     $json = file_get_contents($jsonurl);
-                    echo("<img style='max-width : 90%' src=" . json_decode($json, true)["data"]["movies"][0]["medium_cover_image"] . "></img>");
-                   
-                    echo("<p>" . urldecode($row["name"]) . "</p>");
-                    echo("</td>");
+                    
+                    $img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
+
+                    if(!isset($img)){
+                       $img = "/assets/default_poster.jfif"; 
+                    }
+
+                    echo("<div class='poster-img-col'><img style='max-height:80%; max-width:80%; vertical-align:middle;' src=" . $img . "></img>");
+                    
+
+                    echo("<p>" . urldecode($row["name"]) . "</p></div>");
+                    
 
 
 
                     $count = $count + 1;
                 }
-                echo("</tr></table>");
+                echo("</div>");
+                
             }
 
     ?>

@@ -284,7 +284,14 @@ nav.menu > a {
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
-  }
+}
+.poster-img-row{
+	display: flex;
+}
+.poster-img-col{
+	flex: 33.33%;
+  padding: 5px;
+}
 
 
 
