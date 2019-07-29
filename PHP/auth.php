@@ -50,6 +50,7 @@ function checkdb($u, $p) {
             }
             $lstatus = $row["plex_logged_in_once"];
             $email_result = $row["email"];
+            $user_result = $row["username"];
         }
 
     } else {
@@ -57,7 +58,7 @@ function checkdb($u, $p) {
         $message = "User%20does%20not%20exist";
     }
     $con->close();
-    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result);
+    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result, 'username' => $user_result);
     
 }
 
@@ -90,7 +91,7 @@ function require_auth() {
     else {
         //successful login
         
-        $_SESSION["username"] = $user;
+        $_SESSION["username"] = $authresults["username"];
         $_SESSION["admin"] = $authresults["admin"];
 
         if (!$authresults["first_login_status"]){
@@ -100,8 +101,16 @@ function require_auth() {
             ///////INVITE USER////////
             invite_plex_user($authresults["email"]);
 
+            //set first logged in flag
+            $flag_con = get_connection("requests");
+        
+            //update DB with plex code and logged_in_once flag
+            $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1', `plex_code` = '" . $plex . "' WHERE `username` = '" . $_SESSION["username"] . "'";
+            echo($sql);
+            $result = $flag_con->query($sql);
 
-            header("Location:/index.php?plexLoggedInOnce=0");
+
+            //header("Location:/index.php?plexLoggedInOnce=0". $result);
         }
         else{
             
