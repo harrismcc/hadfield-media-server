@@ -1,16 +1,18 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
 //start user session
 session_start();
 
-
+/*
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+} */
+
+$conn= get_connection('requests');
 
 //Test if movie is already in the requests db
 $sql_imdb_test = "SELECT * FROM `requests_table` WHERE `imdb_id` = '" . $_GET["imdb_id"] . "'";

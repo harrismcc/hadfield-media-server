@@ -2,24 +2,27 @@
 
 
 //TODO: we need some way here to check if first login has happened. If not, then invite plex user
-
+include "plex_auth/create.php";
 
 
 //start user session
-session_start();
+if(!isset($_SESSION)){session_start();}
 
 
 function checkdb($u, $p) {
     //this authenticates
     //new sql connection
-    include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
+    /*
     // Create connection
     $con = new mysqli($servername, $username, $password, $dbname);
     // Check connection
     if ($con->connect_error) {
         die("Connection failed: " . $con->connect_error);
-    }
+    }*/
+
+    $con = get_connection('requests');
 
     //create and execute the sql line
     //only get lines where a link exists
@@ -46,6 +49,8 @@ function checkdb($u, $p) {
                 $message = "Incorrect%20login";
             }
             $lstatus = $row["plex_logged_in_once"];
+            $email_result = $row["email"];
+            $user_result = $row["username"];
         }
 
     } else {
@@ -53,7 +58,7 @@ function checkdb($u, $p) {
         $message = "User%20does%20not%20exist";
     }
     $con->close();
-    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus);
+    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result, 'username' => $user_result);
     
 }
 
@@ -84,12 +89,28 @@ function require_auth() {
 		exit;
     }
     else {
+        //successful login
         
-        $_SESSION["username"] = $user;
+        $_SESSION["username"] = $authresults["username"];
         $_SESSION["admin"] = $authresults["admin"];
 
         if (!$authresults["first_login_status"]){
-            header("Location:/index.php?plexLoggedInOnce=0");
+            //add new plex user
+            $plex = create_plex_user($authresults["email"], $_SESSION["username"], $_POST["password"]);
+
+            ///////INVITE USER////////
+            invite_plex_user($authresults["email"]);
+
+            //set first logged in flag
+            $flag_con = get_connection("requests");
+        
+            //update DB with plex code and logged_in_once flag
+            $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1', `plex_code` = '" . $plex . "' WHERE `username` = '" . $_SESSION["username"] . "'";
+            echo($sql);
+            $result = $flag_con->query($sql);
+
+
+            //header("Location:/index.php?plexLoggedInOnce=0". $result);
         }
         else{
             
