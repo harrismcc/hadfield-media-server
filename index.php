@@ -126,6 +126,7 @@ if (!isset($_SESSION["username"])){
 
     <div id="recs-box" class="item center rounded">
     <?php
+    //THIS SECTION ADDS THE RECENT MOVIES
             require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
         
             $con = get_connection('requests');
@@ -139,7 +140,10 @@ if (!isset($_SESSION["username"])){
         
             if ($result->num_rows > 0 ) {
                 // output data of each row
-                echo("<h2 class='center'>Recently Added</h2><table><tr>");
+                echo("<h2 class='center' style='
+                margin-top: 0px;'>Recently Added</h2>");
+                echo("<table><tr>");
+                
                 while($row = $result->fetch_assoc()) {
                     
                     
@@ -150,14 +154,16 @@ if (!isset($_SESSION["username"])){
 
 
                     echo("<td>");
-                    //echo("<p>" . urldecode($row["name"]) . "</p>");
+                    
 
                     //make post request
                     //https://www.omdbapi.com/?apikey=7d893962&s=
 
-                    $jsonurl = "https://www.omdbapi.com/?apikey=7d893962&s=" . $row["name"];
+                    $jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=" . $row["name"];
                     $json = file_get_contents($jsonurl);
-                    echo("<img style='max-width : 90%' src=" . json_decode($json)->Search[0]->Poster . "></img>");
+                    echo("<img style='max-width : 90%' src=" . json_decode($json, true)["data"]["movies"][0]["medium_cover_image"] . "></img>");
+                   
+                    echo("<p>" . urldecode($row["name"]) . "</p>");
                     echo("</td>");
 
 
