@@ -124,7 +124,7 @@ if (!isset($_SESSION["username"])){
         
     </div>
 
-    <div id="recs-box" class="item center rounded">
+    <div id="recs-box" class="item center rounded" style="min-width:350px;">
     <?php
     //THIS SECTION ADDS THE RECENT MOVIES
             require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
@@ -169,7 +169,7 @@ if (!isset($_SESSION["username"])){
                        $img = "/assets/default_poster.jfif"; 
                     }
 
-                    echo("<div class='poster-img-col'><img class='recentPoster' style='max-height:80%; max-width:80%; vertical-align:middle;' imdb_id='" . $id . "' src=" . $img . "></img>");
+                    echo("<div class='poster-img-col'><img class='recentPoster' style='max-height:300px; max-width:200px; vertical-align:middle;' imdb_id='" . $id . "' src=" . $img . "></img>");
                     
 
                     echo("<p>" . urldecode($row["name"]) . "</p></div>");

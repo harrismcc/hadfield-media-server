@@ -287,10 +287,12 @@ nav.menu > a {
 }
 .poster-img-row{
 	display: flex;
+	flex-wrap: wrap;
 }
 .poster-img-col{
 	flex: 33.33%;
   padding: 5px;
+  max-width: 200px;
 }
 
 
