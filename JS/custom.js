@@ -2,6 +2,10 @@ var script = document.createElement('script');
 script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js' 
 document.getElementsByTagName('head')[0].appendChild(script); 
 
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 
 //load only if html is ready
 $(document).ready(function(){
@@ -17,10 +21,10 @@ $(document).ready(function(){
             $("#custom-request-div").prepend("<h3 id='invalid'>Invalid Submission</h3>");
         }
         else {
-            var request = {user: 'hadfield_request_portal_custom', type : "CUSTOM" ,imdb_id : $("#imdb").val().replace(/\D/g,'') , name : $("#name").val(), torrent_url : $("#link").val() };
+            var request = {user: 'hadfield_request_portal_custom', type : "CUSTOM" ,imdb_id : $("#imdb").val().replace(/\D/g,'') , name : htmlEntities($("#name").val()), torrent_url : $("#link").val() };
 
             if ($("#link").val().substring(0,6) == "magnet") {
-                var request = {user: 'hadfield_request_portal_custom', type : "CUSTOM" ,imdb_id : $("#imdb").val().replace(/\D/g,'') , name : $("#name").val(), magnet : $("#link").val() };
+                var request = {user: 'hadfield_request_portal_custom', type : "CUSTOM" ,imdb_id : $("#imdb").val().replace(/\D/g,'') , name : htmlEntities(html$("#name").val()), magnet : $("#link").val() };
             }
 
             $("#invalid").show();

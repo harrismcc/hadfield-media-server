@@ -3,7 +3,7 @@
 include "plex_auth/create.php";
 include "verify_pin.php";
 
-include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
 
 
@@ -23,7 +23,7 @@ $_POST["username"] = strtolower($_POST["username"]);
 
 ////////CREATE NEW PLEX USER////////
 
-if ($_POST["create-plex"]){
+if ($_POST["create-plex"] && 1==2){
 	echo("Plex Checkbox: " . $_POST["create-plex"]);
 	$plex = create_plex_user($_POST["email"], $_POST["username"], $_POST["pass"]);
 	echo("Plex: " . $plex);
@@ -38,12 +38,15 @@ if ($_POST["create-plex"]){
 
 
 ////////CONNECT TO DB////////
+/*
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+} */
+
+$conn= get_connection('requests');
 
 $sql_check = "SELECT `id` FROM `auth_table` WHERE `username` = '" . $_POST["username"] . "' OR `email` = '" . $_POST["email"] . "'";
 $user_id = $conn->query($sql_check);

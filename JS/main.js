@@ -28,6 +28,7 @@ $(document).ready(function(){
           var obj = JSON.parse(data);
           
           console.log(obj);
+          $("#recs-box").hide();
 
           
           //create table
@@ -42,7 +43,7 @@ $(document).ready(function(){
                 var tr="<tr>";
                 var td1="<td>\
                 <a href="+ "https://www.youtube.com/watch?v=" +movies[i]["yt_trailer_code"] +" target='_blank'>\
-                <img class='icon' src="+movies[i]["medium_cover_image"] + ">\
+                <img class='icon'src="+movies[i]["medium_cover_image"] + ">\
                 </a>\
                 </td>";
                 var td2="<td><p>"+movies[i]["title"]+"</p></td>";
@@ -216,7 +217,15 @@ $(document).on('click','body',function(){
   }
   
 });
+
+
+//Make recent posters clickable
+$(".recentPoster").on('click', function(){
+  if ($(this).attr("imdb_id")){
+    fill_display($(this).attr("imdb_id"));
+  }
   
+});
 
 });
 

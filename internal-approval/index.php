@@ -7,7 +7,19 @@ if (!isset($_SESSION)){session_start();}
 
 //Auth user
 if (!isset($_SESSION["username"])){
-    header("Location: /login.php");
+    header('HTTP/1.0 401 Unauthorized');
+    echo("<h1>401 Unauthorized</h1>");
+    echo("<p>You don't have access to this page</p>");
+    
+    //header("Location: /login.php");
+    exit;
+}
+
+if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
+    echo("<h1>401 Unauthorized</h1>");
+    header('HTTP/1.0 401 Unauthorized');
+    echo("<p>You don't have access to this page</p>");
+    //header("Location: /index.php");
     exit;
 }
 
@@ -50,25 +62,6 @@ if (!isset($_SESSION["username"])){
     </div>
     <?php
 
-        /////UPDATE IMDB AND COMPLETED FOR ALL USERS////
-        $ch = curl_init();
-        $url = 'http://hadfield.webhop.me/PHP/sync/add-imdb.php';
-        file_get_contents($url);
-        //So that curl_exec returns the contents of the cURL; rather than echoing it
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
-
-        //set the url, number of POST vars, POST data
-        curl_setopt($ch,(CURLOPT_URL), $url);
-        curl_exec($ch);
-
-        $url = 'http://hadfield.webhop.me/PHP/sync/update-completed.php';
-        file_get_contents($url);
-
-        //set the url, number of POST vars, POST data
-        curl_setopt($ch,(CURLOPT_URL), $url);
-        curl_exec($ch);
-        /////////////////////////////////////
-
         /*
         // Create connection
         $con = new mysqli($servername, $username, $password, $dbname);
@@ -78,14 +71,19 @@ if (!isset($_SESSION["username"])){
         }*/
         $con= get_connection('requests');
 
-        //create and execute the sql line
-        //only get lines where a link exists
-        //TODO: add support for lines with magnet links
-        $sql="SELECT *  FROM `requests_table` WHERE `user`='" . $_SESSION["username"] . "'";
 
-        if ($_SESSION["admin"] == 1){
-            $sql="SELECT *  FROM `requests_table`";
+        //AUTH USER FROM POST REQUEST
+        if (isset($_GET["id_to_approve"])){
+            //approve id
+            $sql = "UPDATE `auth_table` SET `approved` = '1' WHERE `auth_table`.`id` = " . $_GET["id_to_approve"];
+            $result = $con->query($sql);
+            echo("<div class='center'><h3>Approved ID: " . $_GET["id_to_approve"] . "</h3></div>");
         }
+
+
+
+        //DISPLAY USERS SECTION
+        $sql="SELECT `id`, `username`, `email`, `date_created` FROM `auth_table` WHERE `approved` != 1";
 
         $result = $con->query($sql);
     
@@ -97,26 +95,19 @@ if (!isset($_SESSION["username"])){
             echo("<div class='item rounded'>");
             echo("<table id='my-requests-table'>");
             echo("<tbody class='my-results-tbody'>");
-            echo("<tr><th><h3>Name</h3></th><th><h3>Done</h3></th><th><h3>Date</h3></th><tr>");
+            echo("<tr><th><h3>ID</h3></th><th><h3>Name</h3></th><th><h3>Email</h3></th><th><h3>Date</h3></th><th><h3>Approve</h3></th><tr>");
             while($row = $result->fetch_assoc()) {
 
-                if ($row["complete"] == 1){
-                    $complete_val = "<span class='status-green'></span>";
-                }else{
-                    $complete_val = "<span class='status-red'></span>";
-                }
+            
+                $id_row = "<td><p>" . $row["id"] . "</p></td>";
+                $name_row = "<td><p>" . $row["username"] . "</p></td>";
+                $email_row = "<td><p>" . $row["email"] . "</p></td>";
+                $date_row = "<td><p>" . $row["date_created"] . "</p></td>";
+                $button_row = "<td>" . "<form><input type='hidden' name='id_to_approve' value='" . $row["id"] . "'></input><button type = 'submit' class='expand_button'>Approve</button></form>" . "</td>";
 
-                $name_row = "<td><p>" . urldecode($row["name"]) . "</p></td>";
-                $completed_row = "<td>" . $complete_val . "</td>";
-                $date_row = "<td><p>" . $row["submitted_date"] . "</p></td>";
-
-                if ($_SESSION["admin"]){
-                    $admin_row = "<td><p>" . $row["user"] . "</p></td>";
-                    print_r("<tr>" . $name_row . $completed_row . $date_row . $admin_row . "</tr>");
-                } 
-                else {
-                    print_r("<tr>" . $name_row . $completed_row . $date_row . "</tr>");
-                }
+                //output
+                print_r("<tr>" . $id_row . $name_row . $email_row . $date_row . $button_row ."</tr>");
+                
 
                 
             }
@@ -127,17 +118,10 @@ if (!isset($_SESSION["username"])){
         else{
             echo("<div class='item rounded'>");
             echo("<h2>None found</h2>");
-            echo("<p>Go to the search page and make some requests!</p>");
             echo("</div>");
         }
         $con->close();  
 
-
-        if ($_SESSION['admin'] && isset($_GET["newuser"])){
-            $_SESSION["username"] = $_GET["newuser"];
-            $_SESSION["admin"] = 0;
-
-        }
 
     ?>
 

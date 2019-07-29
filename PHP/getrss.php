@@ -1,7 +1,7 @@
 
 <?php
 
-include($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
 
 header('Content-Type: application/xml');
@@ -14,13 +14,15 @@ function createItem($ci_title, $ci_link){
 
 }
 
-
+/*
 // Create connection
 $con = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
-}
+}*/
+
+$con = get_connection('requests');
 
 //create and execute the sql line
 //only get lines where a link exists
