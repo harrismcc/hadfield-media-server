@@ -124,7 +124,67 @@ if (!isset($_SESSION["username"])){
         
     </div>
 
+    <div id="recs-box" class="item center rounded">
+    <?php
+    //THIS SECTION ADDS THE RECENT MOVIES
+            require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+        
+            $con = get_connection('requests');
+
+            $sql = "SELECT * FROM `requests_table` WHERE `submitted_date` >= '2019-07-07 00:00:00' AND `complete` = 1 ORDER BY `submitted_date` DESC";
+            $result = $con->query($sql);
+
+            $count = 0;
+            $count_max = 3;
+        
+        
+            if ($result->num_rows > 0 ) {
+                // output data of each row
+                echo("<h2 class='center' style='margin-top: 0px;margin-bottom:10px;'>Recently Added</h2>");
+                echo("<div class='poster-img-row'>");
+                
+                
+                while($row = $result->fetch_assoc()) {
+                    
+                    
+                    if ($count >= $count_max){
+                        
+                        break;
+                    }
+
+
+                   
+                    error_reporting(0);
+
+                    //make post request
+                    //https://www.omdbapi.com/?apikey=7d893962&s=
+
+                    $jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=" . $row["name"];
+                    $json = file_get_contents($jsonurl);
+                    
+                    $img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
+
+                    if(!isset($img)){
+                       $img = "/assets/default_poster.jfif"; 
+                    }
+
+                    echo("<div class='poster-img-col'><img style='max-height:80%; max-width:80%; vertical-align:middle;' src=" . $img . "></img>");
+                    
+
+                    echo("<p>" . urldecode($row["name"]) . "</p></div>");
+                    
+
+
+
+                    $count = $count + 1;
+                }
+                echo("</div>");
+                
+            }
+
+    ?>
     
+    </div>
     
 
     <p id="hash-display"></p>

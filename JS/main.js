@@ -28,6 +28,7 @@ $(document).ready(function(){
           var obj = JSON.parse(data);
           
           console.log(obj);
+          $("#recs-box").hide();
 
           
           //create table
@@ -216,7 +217,8 @@ $(document).on('click','body',function(){
   }
   
 });
-  
+
+
 
 });
 
