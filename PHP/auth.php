@@ -118,6 +118,7 @@ function require_auth() {
         
         $_SESSION["username"] = $authresults["username"];
         $_SESSION["admin"] = $authresults["admin"];
+        $_SESSION["email"] = $authresults["email"];
 
         if (!$authresults["first_login_status"]){
             //add new plex user
