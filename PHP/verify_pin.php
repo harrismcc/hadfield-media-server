@@ -1,20 +1,15 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
 //This function will verify if a pin is valid
+if (isset($_GET["pin"])){
+    echo(verify_pin($_GET["pin"], "test"));
+}
 
 function verify_pin($pin, $uid){
     //this authenticates
     //new sql connection
-    require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
-    /*
-    // Create connection
-    $con = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $con->connect_error);
-    }
-    */
 
     $con= get_connection('requests');
 
@@ -23,7 +18,20 @@ function verify_pin($pin, $uid){
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
-        //TODO: add expiration date functionality
+        
+        while($row = $result->fetch_assoc()) {
+            $now = time(); // or your date as well
+            $your_date = strtotime($row["created"]);
+            $datediff = $now - $your_date;
+
+            $age = $datediff / (60 * 60 * 24);
+
+            //Expiration date of 30 days
+            if ($age > 30){
+                return 0;
+            }
+            
+        }
 
         //set pin as used
         $sql_mark_pin = "UPDATE `new_account_pins` SET `used` = '1', `user_id` = '" . $uid . "' WHERE `new_account_pins`.`pin` = " . $pin;
@@ -37,4 +45,16 @@ function verify_pin($pin, $uid){
         //no results
         return 0;
     }
+}
+
+function create_new_pin(){
+    $con= get_connection('requests');
+
+    $pin = strval(rand(10000, 999999999));
+    
+
+    $sql="INSERT INTO `new_account_pins` (`pin`, `used`) VALUES ('" . $pin . "', '0')";
+    $result = $con->query($sql);
+
+    return $pin;
 }

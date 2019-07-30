@@ -126,9 +126,25 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
     ?>
 
     <div class="customlink">
-    <button id="watch-button" onclick="location.href = '/watch';" firstLogin=1 class="watch_button">Watch now!</button>
+        <form action="/internal-approval" method="GET">
+            <input type="hidden" name="make-pin" value="1"></input>
+            <button type="submit" id="watch-button" firstLogin=1 class="watch_button">Create Pin</button>
+        </form>
+
+        <?php
+        if (isset($_GET["make-pin"])){
+            include($_SERVER['DOCUMENT_ROOT'] . "/PHP/verify_pin.php");
+            
+            $pin = create_new_pin();
+            echo('<div id="pin-div" class="item rounded"><h2>New Pin:</h2><p id="pin-out">http://hadfield.webhop.me/signup.php?pin=' . $pin . '</p></div>');
+
+
+        }
+        ?>
+        
         
     </div>
+    
     
 </body>
 
