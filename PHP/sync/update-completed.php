@@ -1,5 +1,37 @@
 <?php
 
+//new sql connection
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+
+
+
+function email_notify($user_in){
+
+    $email_con = get_connection("requests");
+    $email_sql = "SELECT * FROM `auth_table` WHERE `username` = '" . $user_in . "'";
+    $result = $email_con->query($email_sql);
+    while ($row = $result->fetch_assoc()) {
+        $user_email = $row["email"];
+    }
+
+    echo("Email: " . $user_email);
+    
+    $to      = $user_email;
+    $subject = 'the subject';
+    $message = 'hello';
+    $headers = 'From: noreply@hadfield.webhop.me' . "\r\n" .
+    'Reply-To: harrismccullers@gmail.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+    
+
+    return mail($to, $subject, $message, $headers);
+
+
+}
+
+
+
 $PLEX_TOKEN = "ZcY_pN6EbZeuPqqDkiyV";
 
 ////////GET ID'S FROM PLEX////////
@@ -19,14 +51,13 @@ for ($i = 0; $i < sizeof($xml->Video); $i++){
 
     $v = substr((string)$xml->Video[$i]["guid"],28,7);
     array_push($existing_ids, $v);
-    echo($existing_ids);
+    var_dump($existing_ids); 
 }
 
 ////////MATCH TO REQUESTS////////
 
 
-//new sql connection
-require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+
 
 /*
 // Create connection
@@ -35,6 +66,10 @@ $con = new mysqli($servername, $username, $password, $dbname);
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }*/
+
+session_start();
+
+
 
 $con=get_connection("requests");
 
@@ -49,6 +84,8 @@ while ($row = $result->fetch_assoc()) {
         $new_sql = "UPDATE `requests_table` SET `complete` = '1' WHERE `requests_table`.`id` = " . $row["id"];
         $con->query($new_sql);
         echo("updated 1 item");
+        email_notify($row["user"]);
+
     }
 
 }

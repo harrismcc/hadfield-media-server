@@ -9,6 +9,7 @@ include "plex_auth/create.php";
 if(!isset($_SESSION)){session_start();}
 
 function getUserIpAddr(){
+    echo("test");
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
         //ip from share internet
         $ip = $_SERVER['HTTP_CLIENT_IP'];

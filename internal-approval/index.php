@@ -138,7 +138,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
             $pin = create_new_pin();
             echo('<div id="pin-div" class="item rounded"><h2>New Pin:</h2><p id="pin-out">http://hadfield.webhop.me/signup.php?pin=' . $pin . '</p></div>');
             $msg = "This is a test message.\nSo just ignore it I guess:\n" . $pin;
-            mail("harrismcc@gmail.com","My subject",$msg);
+            //mail("harrismcc@gmail.com","My subject",$msg);
 
         }
         ?>
