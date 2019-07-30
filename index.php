@@ -159,7 +159,7 @@ if (!isset($_SESSION["username"])){
                     //make post request
                     //https://www.omdbapi.com/?apikey=7d893962&s=
 
-                    $jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=" . $row["name"];
+                    $jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=tt" . $row["imdb_id"] . "&order_by=asc";
                     $json = file_get_contents($jsonurl);
                     
                     $img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];

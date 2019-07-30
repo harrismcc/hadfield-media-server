@@ -103,7 +103,7 @@ function require_auth() {
     $authresults = checkdb($user, $pass);
 
 
-
+    
     
 	if (!$authresults["auth"]) {
 		//header('HTTP/1.1 401 Authorization Required');
@@ -151,6 +151,7 @@ function require_auth() {
 if ($_POST) {
     require_auth();
 }
+
 
 
 ?>
