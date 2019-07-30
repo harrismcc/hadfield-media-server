@@ -8,6 +8,18 @@ include "plex_auth/create.php";
 //start user session
 if(!isset($_SESSION)){session_start();}
 
+function getUserIpAddr(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
 
 function checkdb($u, $p) {
     //this authenticates
@@ -78,7 +90,20 @@ function require_auth() {
         $pass = $_POST["password"];
     }
 
+
+    //Location verification
+    $location_data = json_decode(file_get_contents("http://api.ipstack.com/" . getUserIpAddr() . "?access_key=4744960212f44fe7d0e71ed846f6106e"));
+    if ($location_data->country_code != "US" && isset($location_data->country_code)){
+        echo("http://api.ipstack.com/" . getUserIpAddr() . "?access_key=4744960212f44fe7d0e71ed846f6106e");
+        var_dump($location_data);
+        die("Region not allowed: " . $location_data->country_code);
+    }
+    
+
     $authresults = checkdb($user, $pass);
+
+
+
     
 	if (!$authresults["auth"]) {
 		//header('HTTP/1.1 401 Authorization Required');
