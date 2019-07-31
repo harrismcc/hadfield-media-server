@@ -83,8 +83,11 @@ if (!isset($_SESSION["username"])){
         <?php 
         if(isset($_GET["plexLoggedInOnce"])){
             echo('<button id="watch_button" firstLogin=1 class="watch_button">Watch now!</button>');
+            
+            
         }else{
             echo('<button id="watch_button" firstLogin=0 class="watch_button">Watch now!</button>');
+
         }
         ?>
         
@@ -122,6 +125,7 @@ if (!isset($_SESSION["username"])){
         <?php 
         if(isset($_GET["plexLoggedInOnce"])){
             echo('<button id="watch_button" firstLogin=1 class="watch_button">Watch now!</button>');
+            echo("<div><a target='_blank' href='/howto.php#plex-first-login'>Need help?</a></div>");
         }else{
             echo('<button id="watch_button" firstLogin=0 class="watch_button">Watch now!</button>');
         }
