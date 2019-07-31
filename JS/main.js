@@ -208,10 +208,9 @@ $('.menu').on('click', function(e) {
   e.stopPropagation();
 });
 
+//if anywhere is clicked that does NOT have stopped propigation,
+//menu toggles
 $(document).on('click','body',function(){
-  //if anywhere is clicked that does NOT have stopped propigation,
-  //menu toggles
-
   if (($("nav.menu").attr("class").indexOf("menu_show") >= 0)){
     $("nav.menu").toggleClass("menu_show");
   }
@@ -219,13 +218,38 @@ $(document).on('click','body',function(){
 });
 
 
-//Make recent posters clickable
-$(".recentPoster").on('click', function(){
-  if ($(this).attr("imdb_id")){
-    fill_display($(this).attr("imdb_id"));
-  }
-  
-});
+
+//fill the recents dispay in an async way
+//improves loading time
+function fillRecentDisplay(){
+  //Create recent movie display
+  $("#recs-box").html("<h3>Loading...</h3>");
+  $.ajax({
+    url: 'http://' + document.location.hostname + '/PHP/sync/get-recent.php',
+    type: "GET",
+    data: {},
+    dataType: "html",
+    success: function (data) {
+
+      $("#recs-box").html(data);
+
+        //Make recent posters clickable
+      $(".recentPoster").on('click', function(){
+        if ($(this).attr("imdb_id")){
+          fill_display($(this).attr("imdb_id"));
+        }
+        
+      });
+
+
+    }
+  });
+}
+
+//execute recent dispay function
+fillRecentDisplay();
+
+
 
 });
 

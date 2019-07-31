@@ -3,7 +3,8 @@ include $_SERVER['DOCUMENT_ROOT'] . "/PHP/auth.php";
 //Auth user
 //require_auth(); //"1" level access - no admin needed
 
-if (!isset($_SESSION["username"])){
+//TODO: re-enable auth
+if (!isset($_SESSION["username"]) && 1==2){
     header("Location: /login.php");
     exit;
 }
@@ -23,6 +24,8 @@ if (!isset($_SESSION["username"])){
 
     <title>Hadfield Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    
+    
     <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
     
     
@@ -126,13 +129,17 @@ if (!isset($_SESSION["username"])){
     </div>
 
     <div id="recs-box" class="item center rounded" style="min-width:350px;">
+
     <?php
     //THIS SECTION ADDS THE RECENT MOVIES
+    //this probably needs to be done w/ JS in the future, because this takes too long to render
+    
+    if(1==2){
             require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
         
             $con = get_connection('requests');
 
-            $sql = "SELECT * FROM `requests_table` WHERE `submitted_date` >= '2019-07-07 00:00:00' AND `complete` = 1 ORDER BY `submitted_date` DESC";
+            $sql = "SELECT * FROM `requests_table` WHERE `submitted_date` >= '2019-07-07 00:00:00' AND `complete` = 1 ORDER BY `submitted_date` DESC LIMIT 3";
             $result = $con->query($sql);
 
             $count = 0;
@@ -183,6 +190,7 @@ if (!isset($_SESSION["username"])){
                 echo("</div>");
                 
             }
+        }
 
     ?>
     
