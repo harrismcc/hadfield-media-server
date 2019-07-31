@@ -137,7 +137,7 @@ function require_auth() {
             $result = $flag_con->query($sql);
 
 
-            //header("Location:/index.php?plexLoggedInOnce=0". $result);
+            header("Location:/index.php?plexLoggedInOnce=0". $result);
         }
         else{
             

@@ -41,7 +41,7 @@
             <input type="text" name="username" placeholder="Username" required></input>
             <input type="password" class="password-field" name="password" placeholder="Password" required></input>
             
-            <input type="submit" id="submit">
+            <input type="submit" id="submit" value="Login">
         </form>
     </div>
     

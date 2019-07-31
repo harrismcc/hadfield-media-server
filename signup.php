@@ -53,7 +53,7 @@
             <?php echo('<input type="hidden" name="pin" value="'. $_GET["pin"] .'"></input>');?>
             <p class="white" style="font-size:10pt">By creating an account, you agree to our <a href="/privacy-policy" target="_blank">Privacy Policy</a> 
         and to Plex's <a href="https://www.plex.tv/about/privacy-legal/" target="_blank">Privacy Policy</a></p>
-            <input type="submit" id="submit">
+            <input type="submit" id="submit" value="Create">
         </form>
     </div>
 
