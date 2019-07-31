@@ -24,6 +24,7 @@ if (!isset($_SESSION["username"])){
 
     <title>Hadfield Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
     
     
     <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>

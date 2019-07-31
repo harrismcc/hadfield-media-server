@@ -3,6 +3,8 @@ script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js'
 script.src = '/JS/scrollTo/jquery.scrollTo.js'
 document.getElementsByTagName('head')[0].appendChild(script); 
 
+
+
 //first thing to do is hide results and display
 $("#results-div").hide();
 $("#display-div").hide();

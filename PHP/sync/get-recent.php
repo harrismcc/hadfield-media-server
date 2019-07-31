@@ -41,7 +41,7 @@
                     $id =  json_decode($json, true)["data"]["movies"][0]["id"];
 
                     if(!isset($img)){
-                       $img = "/assets/default_poster.jfif"; 
+                       $img = "/assets/default_poster_jpeg.webp"; 
                     }
 
                     $returnString = $returnString .  "<div class='poster-img-col'><img class='recentPoster' style='max-height:300px; max-width:200px; vertical-align:middle;' imdb_id='" . $id . "' src=" . $img . "></img>";
