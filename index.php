@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/PHP/auth.php";
 //require_auth(); //"1" level access - no admin needed
 
 //TODO: re-enable auth
-if (!isset($_SESSION["username"]) && 1==2){
+if (!isset($_SESSION["username"])){
     header("Location: /login.php");
     exit;
 }
