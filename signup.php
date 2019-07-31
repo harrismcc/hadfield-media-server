@@ -57,6 +57,10 @@
         </form>
     </div>
 
+    <div class="center">
+        <a href="/howto.php">Get Help</a>
+    </div>
+
 
     <script src="/JS/errorDisplay.js"></script>
 

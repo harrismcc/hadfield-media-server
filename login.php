@@ -48,8 +48,11 @@
     
     
     <div class="center">
-        <a href="/signup.php">Need to create an account? - </a>
+        <a href="/signup.php">Need to create an account?</a>
+        <br/>
         <a href="https://github.com/harrismcc/hadfield-media-server">Check out this project on GitHub!</a>
+        <br/>
+        <a href="/howto.php">Get Help</a>
     </div>
 
     <script src="/JS/errorDisplay.js"></script>
