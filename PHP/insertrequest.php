@@ -18,10 +18,13 @@ $conn= get_connection('requests');
 $sql_imdb_test = "SELECT * FROM `requests_table` WHERE `imdb_id` = '" . $_GET["imdb_id"] . "'";
 $result = $conn->query($sql_imdb_test);
 
-if ($result->num_rows > 0) {
-	echo("Thanks " . $_SESSION["username"] . ", looks like this item is already in the database. (Can't find it? Contact a site admin)");
+while($row = $result->fetch_assoc()){
+	//go through all results
+	//echo("Thanks " . $_SESSION["username"] . ", looks like this item is already in the database. (Can't find it? Contact a site admin)");
+	echo("<a href='http://hadfield.webhop.me:32400/web/index.html#!/server/39125569d7281c7ec7a57d94afa124027af31557/search/" . $row["name"] . "'>Here</a>");
 	die();
 }
+
 
 
 

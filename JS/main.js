@@ -19,7 +19,7 @@ $(document).ready(function(){
       //https://yts.lt/api/v2/list_movies.json?query_term=the+martian
       //and assemble a table
 
-      console.log(query);
+      //console.log(query);
       $.ajax({
         url: 'https://yts.lt/api/v2/list_movies.json',
         type: "GET",
@@ -29,7 +29,7 @@ $(document).ready(function(){
           
           var obj = JSON.parse(data);
           
-          console.log(obj);
+          //console.log(obj);
           $("#recs-box").hide();
 
           
@@ -40,7 +40,7 @@ $(document).ready(function(){
           if (movies){
             for(var i=0;i<movies.length;i++)
             {
-                console.log(movies[i]["id"]);
+                //console.log(movies[i]["id"]);
                 
                 var tr="<tr>";
                 var td1="<td>\
@@ -53,7 +53,7 @@ $(document).ready(function(){
                 
         
               $("#results-table").prepend(tr+td1+td2+radio); 
-              console.log("done");
+              //console.log("done");
     
             } 
 
@@ -81,7 +81,7 @@ $(document).ready(function(){
 
 
     }
-
+    
     $("#search-form").submit(function(){
       //when search query submitted
 
@@ -100,6 +100,7 @@ $(document).ready(function(){
       });
 
 
+    
     function fill_display(movieId){
       //take in a movieId and use that to populate the display div
       $.ajax({
@@ -111,38 +112,39 @@ $(document).ready(function(){
           
 
           var data = JSON.parse(data);
-          console.log(data);
-          data = data["data"]["movie"];//navigate to correct part of json
+          //console.log(data);
+          var data = data["data"]["movie"];//navigate to correct part of json
 
           
           $("#display-div").empty();
 
-          //create request button (instead of old requests table)
-          var test = data["torrents"].length - 1;//length-1 b/c it always returns the highest res last
+          var reversed = data["torrents"].length - 1;//length-1 b/c it always returns the highest res last
           
-          $("#display-div").append("<button class='send_request_button' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][test]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " >Request</button>");
+         
 
-
-          /*
-          //Removed this functionality that allowed user to pick resolution, because I always want 1080p baby
-          var tbl2=$("<table/>").attr("id","display-table");
-          $("#display-div").append(tbl2);
-          for(var j=0;j<data["torrents"].length;j++)
-          {
+          var movie_data = $.get(window.location.origin + "/api/v1/get-movie.php?yts_id=" + movieId, function(data){
             
-            var std1="<td>"+data["torrents"][j]["size"]+"</td>";
-            var std2="<td>"+data["torrents"][j]["quality"]+"</td>";
-            var std3="<td>"+data["torrents"][j]["seeds"]+"</td>";
-            var std4="<td><a href="+data["torrents"][j]["url"]+">Magnet</a></td>";
-            var std5 = "<td><button class='send_request_button' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][j]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " >Request</button></td>";
-            console.log(data["title"]);
-            $("#display-table").prepend("<tr>"+std1+std2+std3+std4+std5+"</tr>");
-            //subtable+= "<tr>"+std1+std2+std3+"</tr>";
+            try{
+              //create custom watch button
+              $("#display-div").append("<button id='custom-watch' class='send_request_button' exists='true' movie_name=" + $.parseJSON(data)["name"] + ">Watch This Movie!</button>");
+            }
+            catch(e){
+              console.log(e);
+              
+              
+            }
+            
+          });
+
+          //TODO: Seems like both buttons appear and neither work. So this still needs some work put in 
+
+          //check if "watch" button exists
+          if ($(".custom-watch").attr("movie_name") == undefined){
+             //if not exists, create request button
+              $("#display-div").append("<button class='send_request_button' exists='false' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][reversed]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " >Request</button>");
           }
-          $("#display-table").prepend("<tr><th>Size</th><th>Quality</th><th>Seeds</th><th>Link</th><th>Request</th></tr>");
-          */
 
-
+       
 
           var cast = "";
           for (var j=0; j<data["cast"].length; j++){
@@ -165,15 +167,22 @@ $(document).ready(function(){
 
           //button listner
           $( ".send_request_button" ).on( "click", function(){
-            //alert($(this).attr("movie_id"));
-            $.get( "/PHP/insertrequest.php",{user: 'hadfield_request_portal', name : $(this).attr("title"), type : $(this).attr("type"), torrent_url : $(this).attr("url"), imdb_id : $(this).attr("imdb")}, function( data ) {
-              
-              alert(data);
-              $(".send_request_button").html("Done");
-              $(".send_request_button").css('background', '#E7C272');
-              $(".send_request_button").prop("disabled",true);
-            });
+            console.log("send_request_button clicked");
+            if ($(".send_request_button").attr("exists") == "false"){
+              $.get( "/PHP/insertrequest.php",{user: 'hadfield_request_portal', name : $(this).attr("title"), type : $(this).attr("type"), torrent_url : $(this).attr("url"), imdb_id : $(this).attr("imdb")}, function( data ) {
+                
+                alert(data);
+                $("#display-div").html(data);
+                $(".send_request_button").html("Done");
+                $(".send_request_button").css('background', '#E7C272');
+                $(".send_request_button").prop("disabled",true);
+              });
+            } else {
+              //movie already exists
+              alert("exists");
+              window.location.href = "http://hadfield.webhop.me:32400/web/index.html#!/server/39125569d7281c7ec7a57d94afa124027af31557/search/" + $(".send_request_button").attr("movie_name");
             
+            }
           });
           
         }
@@ -186,7 +195,7 @@ $(document).ready(function(){
 
 
 $(".watch_button").click(function(){
-  console.log("Watch Button Cicked");
+  //console.log("Watch Button Cicked");
   if ($(this).attr("firstLogin") == "1"){
     open("http://hadfield.webhop.me/watch/?firstLogin=1");
   }

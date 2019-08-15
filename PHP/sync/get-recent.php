@@ -1,6 +1,9 @@
 <?php
 
+//TODO: make this not terrible. Use JSON instead of spitting out raw HTML you lazy fuck
+
             require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
+
         
             $con = get_connection('requests');
 
