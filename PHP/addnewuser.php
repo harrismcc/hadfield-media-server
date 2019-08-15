@@ -17,6 +17,12 @@ elseif (!$_POST["pass"] || !$_POST["username"] || !$_POST["repeat-pass"] || !$_P
 	exit;
 }
 
+//make sure that username is not the same as password
+if ($_POST["username"] == $_POST["pass"] || $_POST["email"] == $_POST["pass"]){
+	header("Location:/signup.php?message=Username%20and%20password%20must%20not%20be%20the%20same%20&pin=" . $_POST["pin"]);
+	exit;
+}
+
 //make username and email all lowercase
 $_POST["email"] = strtolower($_POST["email"]);
 $_POST["username"] = strtolower($_POST["username"]);
@@ -57,10 +63,6 @@ if($user_id->num_rows > 0){
 	exit;
 }
 
-//make sure that username is not the same as password
-if ($_POST["username"] == $_POST["pass"] || $_POST["email"] == $_POST["pass"]){
-	header("Location:/signup.php?message=Username%20and%20password%20must%20not%20be%20the%20same%20&pin=" . $_POST["pin"]);
-}
 
 if (verify_pin($_POST["pin"], $_POST["username"])){
 	echo("PIN APPROVED: " . $_POST["pin"]);
