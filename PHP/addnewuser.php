@@ -58,7 +58,7 @@ if($user_id->num_rows > 0){
 }
 
 //make sure that username is not the same as password
-if ($_POST["username"] == $_POST["pass"]){
+if ($_POST["username"] == $_POST["pass"] || $_POST["email"] == $_POST["pass"]){
 	header("Location:/signup.php?message=Username%20and%20password%20must%20not%20be%20the%20same%20&pin=" . $_POST["pin"]);
 }
 
