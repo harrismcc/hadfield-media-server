@@ -9,11 +9,11 @@ require_once($_SERVER['DOCUMENT_ROOT']."/PHP/db-login.php");
 
 ////////ENSURE USER INPUT IS VALID////////
 if ($_POST["repeat-pass"] != $_POST["pass"]){
-	header("Location:/signup.php?message=Passwords%20did%20not%20match");
+	header("Location:/signup.php?message=Passwords%20did%20not%20match&pin=" . $_POST["pin"]);
 	exit;
 }
 elseif (!$_POST["pass"] || !$_POST["username"] || !$_POST["repeat-pass"] || !$_POST["email"]){
-	header("Location:/signup.php?message=Missing%20values");
+	header("Location:/signup.php?message=Missing%20values&pin=" . $_POST["pin"]);
 	exit;
 }
 
@@ -59,7 +59,7 @@ $user_id = $conn->query($sql_check);
 
 //make sure that both username and email are not present already
 if($user_id->num_rows > 0){
-	header("Location:/signup.php?message=Username%20or%20email%20already%20exists");
+	header("Location:/signup.php?message=Username%20or%20email%20already%20exists&pin=" . $_POST["pin"]);
 	exit;
 }
 
