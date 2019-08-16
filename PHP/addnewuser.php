@@ -23,6 +23,11 @@ if ($_POST["username"] == $_POST["pass"] || $_POST["email"] == $_POST["pass"]){
 	exit;
 }
 
+//check password strength
+if (ereg('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})', $_POST["pass"])){
+	die("Password Strength");
+}
+
 //make username and email all lowercase
 $_POST["email"] = strtolower($_POST["email"]);
 $_POST["username"] = strtolower($_POST["username"]);
