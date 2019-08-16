@@ -24,8 +24,15 @@ if ($_POST["username"] == $_POST["pass"] || $_POST["email"] == $_POST["pass"]){
 }
 
 //check password strength
-if (ereg('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})', $_POST["pass"])){
-	die("Password Strength");
+$uppercase = preg_match('@[A-Z]@', $_POST["pass"]);
+$lowercase = preg_match('@[a-z]@', $_POST["pass"]);
+$number    = preg_match('@[0-9]@', $_POST["pass"]);
+$specialChars = preg_match('@[^\w]@', $_POST["pass"]);
+
+if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST["pass"]) < 8) {
+  // tell the user something went wrong
+  header("Location:/signup.php?message=Password%20too%20weak&pin=" . $_POST["pin"]);
+	exit;
 }
 
 //make username and email all lowercase
