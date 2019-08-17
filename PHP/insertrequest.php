@@ -21,7 +21,7 @@ $result = $conn->query($sql_imdb_test);
 while($row = $result->fetch_assoc()){
 	//go through all results
 	//echo("Thanks " . $_SESSION["username"] . ", looks like this item is already in the database. (Can't find it? Contact a site admin)");
-	echo("<a href='http://hadfield.webhop.me:32400/web/index.html#!/server/39125569d7281c7ec7a57d94afa124027af31557/search/" . $row["name"] . "'>Here</a>");
+	echo("Looks like someone has already submitted a request for this title. Come back later and it will be ready!");
 	die();
 }
 

@@ -12,13 +12,13 @@ function imdb_id_check($imdb_id_raw){
         
     $con = get_connection('requests');
 
-    $sql = "SELECT * FROM `requests_table` WHERE `imdb_id` = " . $imdb_id;
+    $sql = "SELECT * FROM `requests_table` WHERE `imdb_id` = " . $imdb_id . " AND `complete` = 1";
     $result = $con->query($sql);
 
     //TODO: currently this returns everything, including username. Should we filter this result?
     if($result){
         while ($row = $result->fetch_assoc()){
-            return json_encode($row); //return the row. "die" to ensure only one result
+            return json_encode(array("result" => true, "data" => $row)); //return the row. "die" to ensure only one result
         }
     }
     else{

@@ -125,8 +125,16 @@ $(document).ready(function(){
           var movie_data = $.get(window.location.origin + "/api/v1/get-movie.php?yts_id=" + movieId, function(data){
             
             try{
+              
               //create custom watch button
-              $("#display-div").append("<button id='custom-watch' class='send_request_button' exists='true' movie_name=" + $.parseJSON(data)["name"] + ">Watch This Movie!</button>");
+              $("#display-div").append("<button id='custom-watch' class='send_request_button' exists='true' movie_name=" + $.parseJSON(data)["data"]["name"] + ">Watch This Movie!</button>");
+              $("#request_button").hide(); //hide request button because it is already in db
+
+             //watch button listner
+            $("#custom-watch").on("click", function(){
+              window.location.href = "http://hadfield.webhop.me:32400/web/index.html#!/server/39125569d7281c7ec7a57d94afa124027af31557/search/" + $("#custom-watch").attr("movie_name");
+            
+            });
             }
             catch(e){
               console.log(e);
@@ -136,12 +144,13 @@ $(document).ready(function(){
             
           });
 
-          //TODO: Seems like both buttons appear and neither work. So this still needs some work put in 
+          
 
           //check if "watch" button exists
           if ($(".custom-watch").attr("movie_name") == undefined){
              //if not exists, create request button
-              $("#display-div").append("<button class='send_request_button' exists='false' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][reversed]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " >Request</button>");
+              $("#display-div").append("<button id='request_button' class='send_request_button' exists='false' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][reversed]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " >Request</button>");
+              
           }
 
        
@@ -165,14 +174,14 @@ $(document).ready(function(){
           $("#display-div").show();
           $(window).scrollTo($("#display-div"));//scroll to display window
 
-          //button listner
+          //send request button listner
           $( ".send_request_button" ).on( "click", function(){
             console.log("send_request_button clicked");
             if ($(".send_request_button").attr("exists") == "false"){
               $.get( "/PHP/insertrequest.php",{user: 'hadfield_request_portal', name : $(this).attr("title"), type : $(this).attr("type"), torrent_url : $(this).attr("url"), imdb_id : $(this).attr("imdb")}, function( data ) {
                 
                 alert(data);
-                $("#display-div").html(data);
+                
                 $(".send_request_button").html("Done");
                 $(".send_request_button").css('background', '#E7C272');
                 $(".send_request_button").prop("disabled",true);
@@ -180,10 +189,12 @@ $(document).ready(function(){
             } else {
               //movie already exists
               alert("exists");
-              window.location.href = "http://hadfield.webhop.me:32400/web/index.html#!/server/39125569d7281c7ec7a57d94afa124027af31557/search/" + $(".send_request_button").attr("movie_name");
+              
             
             }
           });
+
+          
           
         }
 
@@ -211,7 +222,7 @@ $("#back-button").on('click', function() {
 });
 
 
-//This section allows user to clock "off" the menu to dismiss
+//This section allows user to click "off" the menu to dismiss
 $('#back-button').on('click', function(e) {
   e.stopPropagation(); 
 });
