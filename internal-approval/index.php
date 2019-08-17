@@ -58,7 +58,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
 
 
     <div>
-        <h1 id='main-title'>My Requests</h1>
+        <h1 id='main-title'>Users</h1>
     </div>
     <?php
 

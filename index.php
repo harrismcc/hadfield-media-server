@@ -65,7 +65,6 @@ if (!isset($_SESSION["username"])){
     <!--<a id='back-button' href="javascript:void(0)">Back</a>-->
     <i id='back-button' class="material-icons md-light" href="javascript.void(0)">menu_round</i>
     
-    
         <!--Testing menu-->
     <nav class="menu">
 

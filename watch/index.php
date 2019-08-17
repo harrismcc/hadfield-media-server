@@ -59,7 +59,7 @@
         
             $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1' WHERE `username` = '" . $_SESSION["username"] . "'";
             $result = $con->query($sql);
-            echo("<script>alert('Please login to Plex using the email and password you just created. Then accept the invitation from harrismcc to join!');</script>");
+            echo("<script>alert('Please login to Plex using the email and password you just created. Then accept the invitation from harrismcc to join! (Under Settings-Sharing)</script>");');</script>");
             
             ob_flush(); //flush buffer, aka send output to browser
 
