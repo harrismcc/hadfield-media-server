@@ -7,11 +7,14 @@
         
             $con = get_connection('requests');
 
-            $sql = "SELECT * FROM `requests_table` WHERE `submitted_date` >= '2019-07-07 00:00:00' AND `complete` = 1 ORDER BY `submitted_date` DESC LIMIT 3";
+            $count = 0;
+            $count_max = 10;
+
+
+            $sql = "SELECT * FROM `requests_table` WHERE `submitted_date` >= '2019-07-07 00:00:00' AND `complete` = 1 ORDER BY `submitted_date` DESC LIMIT " . $count_max;
             $result = $con->query($sql);
 
-            $count = 0;
-            $count_max = 3;
+            
 
             $returnString = "";
         
@@ -34,20 +37,23 @@
                    
                     error_reporting(0);
 
+                    //NOTE: Removed this, why call for the image every time when I can just store the url once?
                     //make post request
                     //https://www.omdbapi.com/?apikey=7d893962&s=
+                    //$jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=tt" . $row["imdb_id"] . "&order_by=asc";
+                    //$json = file_get_contents($jsonurl);
+                    //$img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
+                    //$id =  json_decode($json, true)["data"]["movies"][0]["id"];
 
-                    $jsonurl = "https://yts.lt/api/v2/list_movies.json?query_term=tt" . $row["imdb_id"] . "&order_by=asc";
-                    $json = file_get_contents($jsonurl);
-                    
-                    $img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
-                    $id =  json_decode($json, true)["data"]["movies"][0]["id"];
+                    $img = $row["poster_url"];
+                    $id = $row["imdb_id"];
+                    $yts_id = $row["yts_id"];
 
                     if(!isset($img)){
                        $img = "/assets/default_poster_jpeg.webp"; 
                     }
 
-                    $returnString = $returnString .  "<div class='poster-img-col'><img class='recentPoster' style='max-height:300px; max-width:200px; vertical-align:middle;' imdb_id='" . $id . "' src=" . $img . "></img>";
+                    $returnString = $returnString .  "<div class='poster-img-col'><img class='recentPoster' style='max-height:300px; max-width:200px; vertical-align:middle;' yts_id= ". $yts_id ." imdb_id='" . $id . "' src=" . $img . "></img>";
                     
 
                     $returnString = $returnString .  "<p>" . urldecode($row["name"]) . "</p></div>";

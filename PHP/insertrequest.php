@@ -28,11 +28,13 @@ while($row = $result->fetch_assoc()){
 
 
 
-$sql = "INSERT INTO requests_table (`user`, `type`, `name`, `imdb_id`, `comments`, `torrent_url`, `magnet`) VALUES (?,?,?,?,?,?,?)";
+$sql = "INSERT INTO requests_table (`user`, `type`, `name`, `imdb_id`,`yts_id`, `comments`, `torrent_url`, `magnet`, `poster_url`) VALUES (?,?,?,?,?,?,?,?,?)";
 //echo($sql);
 $stmt = $conn->prepare($sql);
 //replaced $_GET["user"] with 
-$stmt->bind_param("sssssss",$_SESSION["username"], $_GET["type"], $_GET["name"], $_GET["imdb_id"], $_GET["comments"], $_GET["torrent_url"], $_GET["magnet"]);
+$stmt->bind_param("sssssssss",$_SESSION["username"], $_GET["type"], $_GET["name"], $_GET["imdb_id"], $_GET["yts_id"], $_GET["comments"], $_GET["torrent_url"], $_GET["magnet"], $_GET["movie_poster"]);
+
+
 
 if ($stmt) {
 	$stmt->execute();

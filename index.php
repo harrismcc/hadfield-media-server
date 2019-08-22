@@ -132,7 +132,7 @@ if (!isset($_SESSION["username"])){
         
     </div>
 
-    <div id="recs-box" class="item center rounded" style="min-width:350px;">
+    <div id="recs-box" class="item center rounded" style="width:80%; max-width: 90%; min-width:350px;">
 
     <?php
     //THIS SECTION ADDS THE RECENT MOVIES

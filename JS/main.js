@@ -53,7 +53,7 @@ $(document).ready(function(){
                 
         
               $("#results-table").prepend(tr+td1+td2+radio); 
-              //console.log("done");
+              //console.log("done")
     
             } 
 
@@ -102,7 +102,7 @@ $(document).ready(function(){
 
     
     function fill_display(movieId){
-      //take in a movieId and use that to populate the display div
+      //take in a YTS movieId and use that to populate the display div
       $.ajax({
         url: 'https://yts.lt/api/v2/movie_details.json',
         type: "GET",
@@ -118,6 +118,8 @@ $(document).ready(function(){
           
           $("#display-div").empty();
 
+          
+
           var reversed = data["torrents"].length - 1;//length-1 b/c it always returns the highest res last
           
          
@@ -126,8 +128,9 @@ $(document).ready(function(){
             
             try{
               
+              
               //create custom watch button
-              $("#display-div").append("<button id='custom-watch' class='send_request_button' exists='true' movie_name=" + $.parseJSON(data)["data"]["name"] + ">Watch This Movie!</button>");
+              $("#display-div").append("<button id='custom-watch' class='send_request_button' exists='true' poster_url="+ $.parseJSON(data)["data"]["poster_url"] + " movie_name=" + $.parseJSON(data)["data"]["name"] + ">Watch This Movie!</button>");
               $("#request_button").hide(); //hide request button because it is already in db
 
              //watch button listner
@@ -149,7 +152,7 @@ $(document).ready(function(){
           //check if "watch" button exists
           if ($(".custom-watch").attr("movie_name") == undefined){
              //if not exists, create request button
-              $("#display-div").append("<button id='request_button' class='send_request_button' exists='false' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][reversed]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " >Request</button>");
+              $("#display-div").append("<button id='request_button' class='send_request_button' exists='false' title= " + encodeURI(data["title"]) + " url=" + data["torrents"][reversed]["url"] + " type=MOVIE imdb=" + data["imdb_code"].replace(/\D/g,'') + " yts="+ data["id"] +" poster_url='"+ data["medium_cover_image"]+ "' >Request</button>");
               
           }
 
@@ -163,12 +166,14 @@ $(document).ready(function(){
           cast = "<p><strong>" + cast + "</strong></p>";
           //create other html elements
           //var image = "<img src=" + data["medium_cover_image"] + ">";
-          var image = "";
+          var image = data["medium_cover_image"];
           var trailer = '<iframe width="90%" height="315" src="https://www.youtube.com/embed/'+ data["yt_trailer_code"] +'"\
            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
           var title = "<h1>" + data["title"] + "</h1>";
           var desc = "<p>" + data["description_full"] + "</p>";
-          $("#display-div").prepend(image + trailer +title + cast + desc);
+          
+      
+          $("#display-div").prepend(trailer +title + cast + desc);
 
           //assemble elements in div
           $("#display-div").show();
@@ -178,7 +183,7 @@ $(document).ready(function(){
           $( ".send_request_button" ).on( "click", function(){
             console.log("send_request_button clicked");
             if ($(".send_request_button").attr("exists") == "false"){
-              $.get( "/PHP/insertrequest.php",{user: 'hadfield_request_portal', name : $(this).attr("title"), type : $(this).attr("type"), torrent_url : $(this).attr("url"), imdb_id : $(this).attr("imdb")}, function( data ) {
+              $.get( "/PHP/insertrequest.php",{user: 'hadfield_request_portal', name : $(this).attr("title"), type : $(this).attr("type"), torrent_url : $(this).attr("url"), imdb_id : $(this).attr("imdb"),yts_id : $(this).attr("yts"), movie_poster : $(this).attr("poster_url")}, function( data ) {
                 
                 alert(data);
                 
@@ -258,7 +263,7 @@ function fillRecentDisplay(){
         //Make recent posters clickable
       $(".recentPoster").on('click', function(){
         if ($(this).attr("imdb_id")){
-          fill_display($(this).attr("imdb_id"));
+          fill_display($(this).attr("yts_id"));
         }
         
       });

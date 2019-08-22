@@ -20,6 +20,7 @@ function imdb_id_check($imdb_id_raw){
         while ($row = $result->fetch_assoc()){
             return json_encode(array("result" => true, "data" => $row)); //return the row. "die" to ensure only one result
         }
+        return json_encode(array("result" => false));
     }
     else{
         return json_encode(array("result" => false));
@@ -28,6 +29,7 @@ function imdb_id_check($imdb_id_raw){
 
 
 if (isset($_GET['imdb_id'])){
+
     echo(imdb_id_check($_GET['imdb_id']));
 }
 
