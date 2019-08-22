@@ -45,11 +45,11 @@
                     //$img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
                     //$id =  json_decode($json, true)["data"]["movies"][0]["id"];
 
-                    $img = $row["poster_url"];
+                    $img = ;
                     $id = $row["imdb_id"];
                     $yts_id = $row["yts_id"];
 
-                    if(!isset($img)){
+                    if(!isset($img) || $row["poster_url"] == ""){
                        $img = "/assets/default_poster_jpeg.webp"; 
                     }
 
