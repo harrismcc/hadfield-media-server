@@ -45,7 +45,7 @@
                     //$img = json_decode($json, true)["data"]["movies"][0]["medium_cover_image"];
                     //$id =  json_decode($json, true)["data"]["movies"][0]["id"];
 
-                    $img = ;
+                    $img = $row["poster_url"];
                     $id = $row["imdb_id"];
                     $yts_id = $row["yts_id"];
 
