@@ -15,7 +15,7 @@ function verify_pin($pin, $uid){
 
 
     //create and execute the sql line
-    $sql="SELECT *  FROM `new_account_pins` WHERE `used` = '0' AND `pin` = " . $pin;
+    $sql="SELECT *  FROM `new_account_pins` WHERE `used` != '1' AND `pin` = " . $pin;
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
@@ -31,12 +31,17 @@ function verify_pin($pin, $uid){
             if ($age > 30){
                 return 0;
             }
+
+            //set pin as used if pin is not 'type 2'
+            if($row["used"] != '2'){
+                $sql_mark_pin = "UPDATE `new_account_pins` SET `used` = '1', `user_id` = '" . $uid . "' WHERE `new_account_pins`.`pin` = " . $pin;
+                $con->query($sql_mark_pin);
+            }
             
         }
 
-        //set pin as used
-        $sql_mark_pin = "UPDATE `new_account_pins` SET `used` = '1', `user_id` = '" . $uid . "' WHERE `new_account_pins`.`pin` = " . $pin;
-        $con->query($sql_mark_pin);
+        
+        
 
 
         //return true
