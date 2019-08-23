@@ -41,6 +41,7 @@
     <div class="item rounded">
         <h2>What do you need help with?</h2>
         <button class="watch_button" onclick="window.location.href = '/howto.php#plex-first-login';">No Movies Appear in Plex</button>
+        <button class="watch_button" onclick="window.location.href = '/howto.php#where-to-watch';">Where Can I Watch?</button>
         <button class="watch_button" onclick="window.location.href = '/howto.php#not-approved';">Login "Not Approved"</button>
         <button class="watch_button" onclick="window.location.href = '/howto.php#contact-webmaster';">Page is frozen or blank</button>
         <button class="watch_button" onclick="window.location.href = '/howto.php#invite';">Invite Friend</button>
@@ -67,6 +68,14 @@
         <img src="https://i.imgur.com/5zeUCrB.png">
       </div>
 
+    </div>
+
+    <div class="item rounded" id="where-to-watch">
+    <h2>Where to Watch</h2>
+    <p>The meadia streaming experiance is done using Plex, an amazing free media platform. This can be donwloaded on a multitude of
+    devices from mobile to smart-tv's. You can search for the "Plex" app and sign in using the account details you created for Hadfield. 
+    This will allow you watch movies from the Hadfield server anywhere and anytime!</p>
+    <p>For more info about supported devices, check out this plex article <a href='https://www.plex.tv/apps-devices/'>here</a>.</p>
     </div>
 
     <div class="item rounded" id="not-approved">

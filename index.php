@@ -81,7 +81,8 @@ if (!isset($_SESSION["username"])){
         <a href="/PHP/logout.php">Logout?</a>
         <br/>
         <?php 
-        if(isset($_GET["plexLoggedInOnce"])){
+        var_dump($_SESSION);
+        if($_SESSION["plex_first_login_flag"] == 1){
             echo('<button id="watch_button" firstLogin=1 class="watch_button">Watch now!</button>');
             
             

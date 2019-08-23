@@ -61,7 +61,8 @@ function checkdb($u, $p) {
                 $auth = 0;
                 $message = "Incorrect%20login";
             }
-            $lstatus = $row["plex_logged_in_once"];
+            $lstatus = $row["logged_in_once"];
+            $plstatus = $row["plex_logged_in_once"];
             $email_result = $row["email"];
             $user_result = $row["username"];
             $user_id_result = $row["id"];
@@ -72,7 +73,7 @@ function checkdb($u, $p) {
         $message = "User%20does%20not%20exist";
     }
     $con->close();
-    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result, 'username' => $user_result, 'user_id' => $user_id_result);
+    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'plex_first_login_status' => $plstatus, 'email' => $email_result, 'username' => $user_result, 'user_id' => $user_id_result);
     
 }
 
@@ -123,6 +124,18 @@ function require_auth() {
         $_SESSION["email"] = $authresults["email"];
         $_SESSION["user_id"] = $authresults["user_id"];
 
+        //plex flag inverted
+        if($authresults["plex_first_login_status"] == 1){
+            $_SESSION["plex_first_login_flag"] = 0;
+        }
+        else{
+            $_SESSION["plex_first_login_flag"] = 1;
+        }
+        
+        
+
+       
+
         if (!$authresults["first_login_status"]){
             //add new plex user
             $plex = create_plex_user($authresults["email"], $_SESSION["username"], $_POST["password"]);
@@ -134,15 +147,22 @@ function require_auth() {
             $flag_con = get_connection("requests");
         
             //update DB with plex code and logged_in_once flag
-            $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1', `plex_code` = '" . $plex . "' WHERE `username` = '" . $_SESSION["username"] . "'";
-            echo($sql);
+            $sql= "UPDATE `auth_table` SET `logged_in_once` = '1', `plex_code` = '" . $plex . "' WHERE `id` = '" . $_SESSION["user_id"] . "'";
+            
             $result = $flag_con->query($sql);
+            
+            //set first login flag
+            $_SESSION["first_login_flag"] = 1;
 
 
-            header("Location:/index.php?plexLoggedInOnce=0". $result);
+            header("Location:/index.php");
         }
         else{
             
+            
+
+            //set first login flag
+            $_SESSION["first_login_flag"] = 0;
             header("Location:/index.php");
         }
         

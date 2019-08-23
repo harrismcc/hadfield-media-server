@@ -45,22 +45,19 @@
         }
 
        
-        if ($_GET["firstLogin"] == 1){
-
-            /*
-             // Create connection
-            $con = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($con->connect_error) {
-                die("Connection failed: " . $con->connect_error);
-            }*/
+        if ($_SESSION["plex_first_login_flag"] == 1){
+            
 
             $con = get_connection("requests");
         
-            $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1' WHERE `username` = '" . $_SESSION["username"] . "'";
+            $sql= "UPDATE `auth_table` SET `plex_logged_in_once` = '1' WHERE `id` = '" . $_SESSION["user_id"] . "'";
             $result = $con->query($sql);
             echo("<script>alert('Please login to Plex using the email and password you just created. Then accept the invitation from harrismcc to join! Under Settings-Sharing</script>");
             
+            //set new flag
+            $_SESSION["plex_first_login_flag"] = 0;
+
+
             ob_flush(); //flush buffer, aka send output to browser
 
             header("Location: http://hadfield.webhop.me:32400/web/index.html#!/settings/users/friends");
