@@ -43,6 +43,7 @@
         <button class="watch_button" onclick="window.location.href = '/howto.php#plex-first-login';">No Movies Appear in Plex</button>
         <button class="watch_button" onclick="window.location.href = '/howto.php#not-approved';">Login "Not Approved"</button>
         <button class="watch_button" onclick="window.location.href = '/howto.php#contact-webmaster';">Page is frozen or blank</button>
+        <button class="watch_button" onclick="window.location.href = '/howto.php#invite';">Invite Friend</button>
         <button class="watch_button" onclick="window.location.href = '/howto.php#contact-webmaster';">Other</button>
     </div>
 
@@ -74,6 +75,13 @@
         reviewing your account. This community is closed, meaning that all accounts are subject to manual approval.
         If you think this is an error, contact the webmaster</p>
         <button class="watch_button" onclick="window.location.href = '/howto.php#contact-webmaster';">Contact Webmaster</button>
+    </div>
+
+    <div class="item rounded" id="invite">
+        <h2>Invite Friend</h2>
+        <p>Hadfield Media is a closed community, meaning that you have to be invited by a current user or by an admin in order to join.
+         Each current user is able to create 3 invite codes. Please note that codes you make that are unused still count towards those 3 (so use them carefully!). </p>
+        
     </div>
 
     <div class="item rounded" id="contact-webmaster">

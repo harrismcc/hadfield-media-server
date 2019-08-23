@@ -64,6 +64,7 @@ function checkdb($u, $p) {
             $lstatus = $row["plex_logged_in_once"];
             $email_result = $row["email"];
             $user_result = $row["username"];
+            $user_id_result = $row["id"];
         }
 
     } else {
@@ -71,7 +72,7 @@ function checkdb($u, $p) {
         $message = "User%20does%20not%20exist";
     }
     $con->close();
-    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result, 'username' => $user_result);
+    return array('auth' => $auth, 'admin' => $db_admin_temp, 'message' => $message, 'first_login_status' => $lstatus, 'email' => $email_result, 'username' => $user_result, 'user_id' => $user_id_result);
     
 }
 
@@ -120,6 +121,7 @@ function require_auth() {
         $_SESSION["username"] = $authresults["username"];
         $_SESSION["admin"] = $authresults["admin"];
         $_SESSION["email"] = $authresults["email"];
+        $_SESSION["user_id"] = $authresults["user_id"];
 
         if (!$authresults["first_login_status"]){
             //add new plex user

@@ -76,6 +76,7 @@ if (!isset($_SESSION["username"])){
                 echo('<a href="/internal-approval" id="custom-link" class="customlink">Approve Users</a>');
             } 
         ?>
+        <a href='/invite'>Invite a Friend</a>
         <a href='/howto.php'>Get Help</a>
         <a href="/PHP/logout.php">Logout?</a>
         <br/>

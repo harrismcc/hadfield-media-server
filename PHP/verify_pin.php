@@ -13,6 +13,7 @@ function verify_pin($pin, $uid){
 
     $con= get_connection('requests');
 
+
     //create and execute the sql line
     $sql="SELECT *  FROM `new_account_pins` WHERE `used` = '0' AND `pin` = " . $pin;
     $result = $con->query($sql);
@@ -47,14 +48,30 @@ function verify_pin($pin, $uid){
     }
 }
 
-function create_new_pin(){
+function create_new_pin($referrer){
+    //$referrer is the user id of the referrer
     $con= get_connection('requests');
 
     $pin = strval(rand(10000, 999999999));
     
+    //make sure user has enough invites
+    $sql_check = "SELECT `invites_used`,`admin` FROM `auth_table` WHERE `id` = '" . $referrer . "'";
+    $result = $con->query($sql_check);
 
-    $sql="INSERT INTO `new_account_pins` (`pin`, `used`) VALUES ('" . $pin . "', '0')";
-    $result = $con->query($sql);
+    while($row = $result->fetch_assoc()) {
+        
+        //if user has enough invites OR is an admin
+        if($row["invites_used"] < 3 || $row["admin"] == 1){
+            $sql="INSERT INTO `new_account_pins` (`pin`, `used`, `referrer`) VALUES ('" . $pin . "', '0', '". $referrer ."')";
+            $result = $con->query($sql);
 
-    return $pin;
+            return $pin;
+        }else{
+            return false;
+        }
+    }
+
+
+
+    
 }
