@@ -31,12 +31,11 @@ function email_notify($user_in){
 }
 
 
-
-$PLEX_TOKEN = "ZcY_pN6EbZeuPqqDkiyV";
+$PLEX_TOKEN = "ExLXNAunLxJsbtvNe5rX";
 
 ////////GET ID'S FROM PLEX////////
 
-$request = "http://hadfield.webhop.me:32400/library/sections/1/all?X-Plex-Token=" . $PLEX_TOKEN;
+$request = "http://75.83.61.33:32400/library/sections/1/all?X-Plex-Token=" . $PLEX_TOKEN;
 $contents = file_get_contents($request);
 
 $xml = simplexml_load_string($contents);
@@ -51,24 +50,15 @@ for ($i = 0; $i < sizeof($xml->Video); $i++){
 
     $v = substr((string)$xml->Video[$i]["guid"],28,7);
     array_push($existing_ids, $v);
-    var_dump($existing_ids); 
+    
 }
 
 ////////MATCH TO REQUESTS////////
 
 
-
-
-/*
-// Create connection
-$con = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($con->connect_error) {
-    die("Connection failed: " . $con->connect_error);
-}*/
-
-session_start();
-
+if (!isset($_SESSION["username"])){
+    session_start();
+}
 
 
 $con=get_connection("requests");
@@ -76,6 +66,7 @@ $con=get_connection("requests");
 //get all rows where there is and imdb id and it is not complete
 $sql="SELECT * FROM `requests_table` WHERE `imdb_id` IS NOT NULL AND `complete` = 0";
 $result = $con->query($sql);
+
 
 while ($row = $result->fetch_assoc()) {
     //check if this id is in the above array (aka in plex)

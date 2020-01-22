@@ -13,6 +13,7 @@ function get_connection($dbname){
         error_log("##### ERROR: db login creds not set. Have you configured creds.ini?");
     }
 
+
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
